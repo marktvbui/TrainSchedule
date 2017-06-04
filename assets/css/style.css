@@ -46,11 +46,11 @@ h1 {
   color: black;
   padding-left: 10px;
 }
-.table {
-  table-layout: fixed;
-}
 .container-addTrain {
   padding-top: 10px;
+}
+.table {
+  table-layout: fixed;
 }
 
 
