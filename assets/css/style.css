@@ -1,0 +1,57 @@
+.bodyClass {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.container-header {
+  background-color: blue;
+  margin-bottom: 25px;
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+h1 {
+  font-size: 60px !important;
+}
+.trainHeader {
+  color: black;
+  text-align: center;
+}
+
+.container-trainHeader {
+  border-style: solid;
+  border-color: blue;
+  margin-bottom: 10px;
+}
+.addTrainTitle {
+  background-color: blue;
+  color: black;
+  padding-left: 10px;
+}
+#add-train {
+  background-color: blue;
+  color: black;
+  border-radius: 5px;
+}
+.input {
+  width: 90%;
+}
+.container-schedule {
+  border-style: solid;
+  border-color: blue;
+  margin-bottom: 25px;
+}
+.currentTrain {
+  background-color: blue;
+  color: black;
+  padding-left: 10px;
+}
+.table {
+  table-layout: fixed;
+}
+.container-addTrain {
+  padding-top: 10px;
+}
+
+
+

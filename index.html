@@ -1,0 +1,79 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Train Schedule</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+        <!-- adding jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- adding bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div class='bodyClass'>
+    <div class='container container-header'>
+      <div class='trainHeader'>
+        <h1>Mark's Magical Rides</h1>
+        <h3>anywhere, anytime!</h3>
+      </div>
+    </div>
+
+  <div class='container container-schedule'>
+    <div class='row currentTrain'>
+      <h3>Current Train Schedule</h3>
+    </div>
+
+    <div class='currentTable'>
+      <table data-role="table" class="table">
+        <thead>
+          <tr>
+            <th>Train Name</th>
+            <th>Destination</th>
+            <th>First Train Time</th>
+            <th>Frequency</th>
+            <th>Minutes Away</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id='train-display'></td>
+            <td id='destination-display'></td>
+            <td id='time-display'></td>
+            <td id='frequency-display'></td>
+            <td id='eta-display'></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class='container container-trainHeader'>
+    <form id ='newTrain'>
+      <div class='row addTrainTitle'>
+      <h3>Add train</h3>
+      </div>
+
+      <div class='container container-addTrain'>
+        <div class="row">
+          <label for="train-input">Train Name</label><br>
+          <input class="input" type="text" id="train-input">
+        </div><br>
+        <div class='row'>
+          <label for='destination-input'>Destination</label><br>
+          <input class='input' type='text' id='destination-input'>
+        </div><br>
+        <div class='row'>
+          <label for='time-input'>First Train Time (HH:mm - military time)</label><br>
+          <input class='input' type='text' id='time-input'>
+        </div><br>
+        <div class='row'>
+          <label for='frequency-input'>Frequency (min)</label><br>
+          <input class='input' type='text' id='frequency'>
+        </div><br>
+        <input type="submit" value="Submit" id='add-train'>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
