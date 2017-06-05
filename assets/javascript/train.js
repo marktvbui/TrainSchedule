@@ -1,6 +1,10 @@
 $(document).ready(function(){
   var saveData = [];
   var data = {};
+  var now = new Date(Date.now());
+  // console.log('date/time is: ' + now);
+  var formated = now.getHours() + ':' + now.getMinutes();
+  // console.log('just the hours:minutes ' + formated);
   $("#add-train").on("click", function(event) {
     event.preventDefault();
     //setting variables, table to target table from index
@@ -18,23 +22,13 @@ $(document).ready(function(){
     data.Frequency = frequency;
     //pushing the hash into the array
     saveData.push(data);
-    console.log(saveData);
+    console.log(data);
     // displaying input fields into table
-      row.append($('<td>').html(trainName));
-      row.append($('<td>').html(destination));
-      row.append($('<td>').html(time));
-      row.append($('<td>').html(frequency));
-      $('#display-table').append(row);
-    // for (var i = 0; i < 10; i ++) {
-    //   var Table = document.getElementById('display-table').insertRow(i);
-    //   for (var j = 0; j < 10; j ++) {
-    //     var insert = Table.insertCell(j);
-    //   }
-    //   table.rows[i].cells[0].html = trainName;
-    //   table.rows[i].cells[1].html = destination;
-    //   table.rows[i].cells[2].html = time;
-    //   table.rows[i].cells[3].html = frequency;
-    // }
+    row.append($('<td>').html(trainName));
+    row.append($('<td>').html(destination));
+    row.append($('<td>').html(time));
+    row.append($('<td>').html(frequency));
+    $('#display-table').append(row);
     //clearing the local storage from previous visits
     localStorage.clear();
     //setting local storage
@@ -43,6 +37,10 @@ $(document).ready(function(){
     localStorage.setItem('localTime', time);
     localStorage.setItem('localFrequency', frequency);
   });
+  // var value = ["aa","bb","cc"]
+  // localStorage.setItem("testKey", JSON.stringify(value));
+  // var test = JSON.parse(localStorage.getItem("testKey"));
+  // console.log(test) will return: 'aa', 'bb', 'cc';
   //grabbing info from local storage and displaying it, even on refresh
   $("#train-display").html(localStorage.getItem("localTrain"));
   $("#destination-display").html(localStorage.getItem("localDestination"));
