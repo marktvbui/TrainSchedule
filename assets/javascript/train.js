@@ -1,15 +1,16 @@
 $(document).ready(function(){
   var saveData = [];
-  var data = {};
   var now = new Date(Date.now());
   // console.log('date/time is: ' + now);
   var formated = now.getHours() + ':' + now.getMinutes();
+  localStorage.clear();
   // console.log('just the hours:minutes ' + formated);
   $("#add-train").on("click", function(event) {
     event.preventDefault();
     //setting variables, table to target table from index
     var table = document.getElementById("display-table");
     var row = $('<tr>');
+    var data = {};
     //these variables saves the value from the input fields
     var trainName = $('#train-input').val().trim();
     var destination = $('#destination-input').val().trim();
@@ -22,7 +23,8 @@ $(document).ready(function(){
     data.Frequency = frequency;
     //pushing the hash into the array
     saveData.push(data);
-    console.log(data);
+    // console.log(data);
+    console.log(saveData);
     // displaying input fields into table
     row.append($('<td>').html(trainName));
     row.append($('<td>').html(destination));
@@ -30,7 +32,7 @@ $(document).ready(function(){
     row.append($('<td>').html(frequency));
     $('#display-table').append(row);
     //clearing the local storage from previous visits
-    localStorage.clear();
+    // localStorage.clear();
     //setting local storage
     localStorage.setItem("localTrain", trainName);
     localStorage.setItem('localDestination', destination);
@@ -41,6 +43,7 @@ $(document).ready(function(){
   // localStorage.setItem("testKey", JSON.stringify(value));
   // var test = JSON.parse(localStorage.getItem("testKey"));
   // console.log(test) will return: 'aa', 'bb', 'cc';
+
   //grabbing info from local storage and displaying it, even on refresh
   $("#train-display").html(localStorage.getItem("localTrain"));
   $("#destination-display").html(localStorage.getItem("localDestination"));
