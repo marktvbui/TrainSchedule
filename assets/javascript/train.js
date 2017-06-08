@@ -16,11 +16,6 @@ $(document).ready(function(){
   var frequency = 0;
   displayFirebase();
 
-  // console.log(trains);
-  // var trainList = JSON.parse(localStorage.getItem('trains'));
-  // if (!Array.isArray(trainList)) {
-  //   trainList = []
-  // }
   $("#add-train").on("click", function(event) {
     event.preventDefault();
     //setting variables, table to target table from index
@@ -31,18 +26,24 @@ $(document).ready(function(){
     destination = $('#destination-input').val().trim();
     time = $('#time-input').val().trim();
     frequency = $('#frequency-input').val().trim();
+    // setting trains object
     trains.fbTrain = trainName;
     trains.fbDestination = destination;
     trains.fbTime = time;
     trains.fbFrequency = frequency;
+    // pushing trains object into the database
     database.ref().push({
       trains
     });
   });
   function displayFirebase() {
     database.ref().on('value', function(snapshot){
-      $('#display-table').empty();
+      // emptys out the table before running through each loop, that way each child element will only show once instead of it piling on
+      $('#display-data').empty();
+      // forEach loop, looping through each child element
       snapshot.forEach(function(childSnapshot){
+        // console.log(childSnapshot.val());
+        // dynamically creating table rows
         var row = $('<tr>');
         row.append($('<td>').html(childSnapshot.val().trains.fbTrain));
         row.append($('<td>').html(childSnapshot.val().trains.fbDestination));
