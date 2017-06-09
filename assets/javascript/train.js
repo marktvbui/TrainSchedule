@@ -16,6 +16,7 @@ $(document).ready(function(){
   var destination = '';
   var time = '';
   var frequency = 0;
+  new Date($.now());
   displayFirebase();
 
   // on click event on the add-train button
