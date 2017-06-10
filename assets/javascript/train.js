@@ -11,13 +11,11 @@ $(document).ready(function(){
   // setting variables
   var database = firebase.database();
   // setting initial variables to empty/0
-  var trains = {};
   var trainName = '';
   var destination = '';
   var time = '';
   var frequency = 0;
   new Date($.now());
-  displayFirebase();
 
   // on click event on the add-train button
   $("#add-train").on("click", function(event) {
@@ -31,35 +29,41 @@ $(document).ready(function(){
     time = $('#time-input').val().trim();
     frequency = $('#frequency-input').val().trim();
     // setting trains object
-    trains.fbTrain = trainName;
-    trains.fbDestination = destination;
-    trains.fbTime = time;
-    trains.fbFrequency = frequency;
+    var trains = {
+      fbTrain: trainName,
+      fbDestination: destination,
+      fbTime: time,
+      fbFrequency: frequency
+    }
+    // trains.fbTrain = trainName;
+    // trains.fbDestination = destination;
+    // trains.fbTime = time;
+    // trains.fbFrequency = frequency;
     // pushing trains object into the database
-    database.ref().push({
-      trains
-    });
+    database.ref('trains').push(trains);
   });
-  function displayFirebase() {
-    database.ref().on('value', function(snapshot){
+    database.ref('trains').on('child_added', function(snapshot){
+      // child_added makes lines 48, 49, 50 irrelavant
       // emptys out the table before running through each loop, that way each child element will only show once instead of it piling on
-      $('#display-data').empty();
+      // $('#display-data').empty();
       // forEach loop, looping through each child element
-      snapshot.forEach(function(childSnapshot){
+      // snapshot.forEach(function(childSnapshot){
         // console.log(childSnapshot.val());
         // dynamically creating table rows
-        var row = $('<tr>');
-        row.append($('<td>').html(childSnapshot.val().trains.fbTrain));
-        row.append($('<td>').html(childSnapshot.val().trains.fbDestination));
-        row.append($('<td>').html(childSnapshot.val().trains.fbTime));
-        row.append($('<td>').html(childSnapshot.val().trains.fbFrequency));
-        $('#display-table').append(row);
-        // console.log(snapshot.val());
-      }), function(errorObject) {
+      var train = snapshot.val();
+      var row = $('<tr>');
+      row.append($('<td>').html(train.fbTrain));
+      row.append($('<td>').html(train.fbDestination));
+      row.append($('<td>').html(train.fbTime));
+      row.append($('<td>').html(train.fbFrequency));
+      $('#display-table').append(row);
+      // console.log(snapshot.val());
+    }, function(errorObject) {
         console.log('read failed: ' + errorObject);
-      }
-    });
-  }
+      })
 });
 
-
+//database.ref().on('child_added', function(childSnapshot, preChildKey){
+//   var empStartPretty = moment.unix(empStart).format('MM/DD/YY');
+//   var empMonths = moment().diff(moment.unix(empStart))
+// })
