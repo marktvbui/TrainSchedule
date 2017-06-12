@@ -5,7 +5,7 @@
   padding-bottom: 50px;
 }
 .container-header {
-  background-color: blue;
+  background-color: #33ECFF;
   margin-bottom: 25px;
   padding-bottom: 50px;
   padding-top: 50px;
@@ -20,16 +20,16 @@ h1 {
 
 .container-trainHeader {
   border-style: solid;
-  border-color: blue;
+  border-color: #33ECFF;
   margin-bottom: 10px;
 }
 .addTrainTitle {
-  background-color: blue;
+  background-color: #33ECFF;
   color: black;
   padding-left: 10px;
 }
 #add-train {
-  background-color: blue;
+  background-color: #33ECFF;
   color: black;
   border-radius: 5px;
 }
@@ -38,11 +38,11 @@ h1 {
 }
 .container-schedule {
   border-style: solid;
-  border-color: blue;
+  border-color: #33ECFF;
   margin-bottom: 25px;
 }
 .currentTrain {
-  background-color: blue;
+  background-color: #33ECFF;
   color: black;
   padding-left: 10px;
 }

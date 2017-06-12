@@ -14,8 +14,15 @@ $(document).ready(function(){
   var trainName = '';
   var destination = '';
   var time = '';
-  var frequency = 0;
-  new Date($.now());
+  var frequency = '';
+  var trains = {};
+  var currentTime = moment();
+  var firstTimeConverted = '';
+  var diffTime = '';
+  var tRemainder = '';
+  var tMinutesTillTrain = '';
+  var nextArrive = '';
+  setTimeout(timer, 60000);
 
   // on click event on the add-train button
   $("#add-train").on("click", function(event) {
@@ -28,12 +35,24 @@ $(document).ready(function(){
     destination = $('#destination-input').val().trim();
     time = $('#time-input').val().trim();
     frequency = $('#frequency-input').val().trim();
+    // converts string of time into time format
+    firstTimeConverted = moment(time, "hh:mm");
+    // calculates the difference in minutes between current time and  train time
+    diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    // determines how many minutes are left between each scheduled stop
+    tRemainder = diffTime % frequency;
+    // calculates how many minutes are left until arrival
+    tMinutesTillTrain = frequency - tRemainder;
+    nextArrive = moment().add(tRemainder, "minutes").format("hh:mm");
+    console.log(nextArrive);
+
     // setting trains object
-    var trains = {
+    trains = {
       fbTrain: trainName,
       fbDestination: destination,
-      fbTime: time,
-      fbFrequency: frequency
+      fbTime: nextArrive,
+      fbFrequency: frequency,
+      fbETA: tMinutesTillTrain
     }
     // trains.fbTrain = trainName;
     // trains.fbDestination = destination;
@@ -42,6 +61,14 @@ $(document).ready(function(){
     // pushing trains object into the database
     database.ref('trains').push(trains);
   });
+  function timer() {
+    trains.forEach(function(train){
+      var test = train.val();
+      console.log(test);
+      test.tMinutesTillTrain > 0 ? (test.tMinutesTillTrain --) : (test.tMinutesTillTrain = test.frequency - test.tRemainder);
+      database.ref('trains').push(test.tMinutesTillTrain);
+    });
+  }
     database.ref('trains').on('child_added', function(snapshot){
       // child_added makes lines 48, 49, 50 irrelavant
       // emptys out the table before running through each loop, that way each child element will only show once instead of it piling on
@@ -51,11 +78,13 @@ $(document).ready(function(){
         // console.log(childSnapshot.val());
         // dynamically creating table rows
       var train = snapshot.val();
+      // console.log(train);
       var row = $('<tr>');
       row.append($('<td>').html(train.fbTrain));
       row.append($('<td>').html(train.fbDestination));
-      row.append($('<td>').html(train.fbTime));
       row.append($('<td>').html(train.fbFrequency));
+      row.append($('<td>').html(train.fbTime));
+      row.append($('<td id="eta">').html(train.fbETA));
       $('#display-table').append(row);
       // console.log(snapshot.val());
     }, function(errorObject) {
@@ -63,7 +92,4 @@ $(document).ready(function(){
       })
 });
 
-//database.ref().on('child_added', function(childSnapshot, preChildKey){
-//   var empStartPretty = moment.unix(empStart).format('MM/DD/YY');
-//   var empMonths = moment().diff(moment.unix(empStart))
-// })
+
