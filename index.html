@@ -53,19 +53,19 @@
       <div class='container container-addTrain'>
         <div class="row">
           <label for="train-input">Train Name</label><br>
-          <input class="input" type="text" id="train-input">
+          <input class="input" type="text" id="train-input" required>
         </div><br>
         <div class='row'>
           <label for='destination-input'>Destination</label><br>
-          <input class='input' type='text' id='destination-input'>
+          <input class='input' type='text' id='destination-input' required>
         </div><br>
         <div class='row'>
           <label for='time-input'>First Train Time (HH:mm - military time)</label><br>
-          <input class='input' type='text' id='time-input'>
+          <input class='input' type='text' id='time-input' required>
         </div><br>
         <div class='row'>
           <label for='frequency-input'>Frequency (min)</label><br>
-          <input class='input' type='text' id='frequency-input'>
+          <input class='input' type='number' id='frequency-input' required>
         </div><br>
         <button type='submit' value='Submit' id='add-train'>Add-Train</button>
       </div>

@@ -16,13 +16,7 @@ $(document).ready(function(){
   var time = '';
   var frequency = '';
   var trains = {};
-  // var currentTime = moment();
-  // var firstTimeConverted = '';
-  // var diffTime = '';
-  // var tRemainder = '';
-  // var tMinutesTillTrain = '';
-  // var nextArrive = '';
-  // setTimeout(timer, 10000);
+  setInterval(timer, 60000);
 
   // on click event on the add-train button
   $("#add-train").on("click", function(event) {
@@ -69,8 +63,9 @@ $(document).ready(function(){
   //     })
   //   });
   // }
+  function displayInfo(){
     database.ref('trains').on('child_added', function(snapshot){
-      // child_added makes lines 48, 49, 50 irrelavant
+      // child_added makes 3 lines of actual code below irrelavant
       // emptys out the table before running through each loop, that way each child element will only show once instead of it piling on
       // $('#display-data').empty();
       // forEach loop, looping through each child element
@@ -79,17 +74,16 @@ $(document).ready(function(){
         // dynamically creating table rows
         // converts string of time into time format
       var train = snapshot.val();
-
       var firstTimeConverted = moment(train.fbTime, "hh:mm").subtract(1, "years");
-      console.log(firstTimeConverted);
+      // console.log(firstTimeConverted);
       // calculates the difference in minutes between current time and  train time
       var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-      console.log('difference in time ' + diffTime);
+      // console.log('difference in time ' + diffTime);
       // determines how many minutes are left between each scheduled stop
       var tRemainder = diffTime % train.fbFrequency;
-      console.log('remainder ' + tRemainder);
+      // console.log('remainder ' + tRemainder);
       // calculates how many minutes are left until arrival
-      var tMinutesTillTrain = train.fbFrequency - tRemainder;
+      var tMinutesTillTrain = (train.fbFrequency - tRemainder);
       var nextArrive = moment().add(tMinutesTillTrain, "minutes").format("hh:mm");
       // console.log(nextArrive);
       // console.log(tMinutesTillTrain);
@@ -106,6 +100,13 @@ $(document).ready(function(){
     }, function(errorObject) {
         console.log('read failed: ' + errorObject);
       })
+  }
+  function timer(){
+    $('#display-data').empty();
+    displayInfo();
+    console.log('page has refreshed');
+  }
+  displayInfo();
 });
 
 
