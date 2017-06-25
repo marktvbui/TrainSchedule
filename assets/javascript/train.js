@@ -33,6 +33,7 @@ $(document).ready(function(){
     if ((trainName === '') || (destination === '') ||
       (time === '') || (frequency === '')) {
       alert('please fill in all fields');
+      return false;
     }
 
     // setting trains object
